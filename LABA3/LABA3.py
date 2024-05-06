@@ -9,19 +9,15 @@ from sklearn.tree import plot_tree
 
 # Шаг 2: Загрузка данных и обработка пропусков
 data = pd.read_csv("train.csv")
-
-# Заполнение пропущенных значений
 data["Age"].fillna(data["Age"].mean(), inplace=True)
 data.dropna(subset=["Embarked"], inplace=True)
-
-# Замена категориальных признаков на числовые
 data_encoded = pd.get_dummies(data)
 
 # Шаг 3: Выделение меток и признаков
 Y = data_encoded["Survived"]
 X = data_encoded.drop("Survived", axis=1)
 
-# Шаг 4: Разделение набора данных на обучающую и тестовую выборки
+# Шаг 4: Разделение набора данных на обучающую и тестовую выборки   
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=42)
 
 print("Размер обучающей выборки (X_train):", X_train.shape)
